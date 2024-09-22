@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #declaring variable
 PERSON1=$1
 PERSON2=$2
