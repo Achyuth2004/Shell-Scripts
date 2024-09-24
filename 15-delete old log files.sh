@@ -1,23 +1,25 @@
 #!/bin/bash
 
-set -e
+SOURCE_DIRECTORY=/tmp/app-logs
 
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-SOURCE=/tmp/app-logs
-
-if [ -d $SOURCE ]
-then 
-    echo -e "$G The source file exists:$SOURCE $N"
+if [ -d $SOURCE_DIRECTORY ]
+then
+    echo -e "$G Source directory exists $N"
 else
-    echo -e "$R Thse source file not exists:$SOURCE $N"
-    mkdir /tmp/app-logs
+    echo -e "$R Please make sure $SOURCE_DIRECTORY exists $N"
+    mkdir /tmp/app-log
     exit 1
 fi
 
-FILES=$(find $SOURCE -name "*.log" -mtime +14)  #to delete .log files more than 2weeks
+FILES=$(find $SOURCE_DIRECTORY -name "*.log" -mtime +14)
 
-echo"Files to delete are :$FILES"
+while IFS= read -r line
+do
+    echo "Deleting file: $line"
+    rm -rf $line
+done <<< $FILES
