@@ -11,9 +11,13 @@ SOURCE=/tmp/app-logs
 
 if [ -d $SOURCE ]
 then 
-    echo "$G The source file exists:$SOURCE $N"
+    echo -e "$G The source file exists:$SOURCE $N"
 else
-    echo "$R Thse source file not exists:$SOURCE $N"
+    echo -e "$R Thse source file not exists:$SOURCE $N"
     mkdir /tmp/app-logs
     exit 1
 fi
+
+FILES=$(find $SOURCE -name "*.log" -mtime +14)  #to delete .log files more than 2weeks
+
+echo"Files to delete are :$FILES"
